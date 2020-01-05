@@ -1,10 +1,6 @@
 package unclosetx
 
 import (
-
-	zaganeunclosetx "github.com/gcpug/zagane/passes/unclosetx"
-
-	"github.com/gostaticanalysis/comment/passes/commentmap"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/buildssa"
 	"golang.org/x/tools/go/ssa"
@@ -18,7 +14,6 @@ var Analyzer = &analysis.Analyzer{
 	Run:  run,
 	Requires: []*analysis.Analyzer{
 		buildssa.Analyzer,
-		commentmap.Analyzer,
 	},
 }
 
@@ -37,7 +32,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 	pass.ResultOf[buildssa.Analyzer].(*buildssa.SSA).SrcFuncs = newFuncs
 
-	return zaganeunclosetx.Analyzer.Run(pass)
+	return nil, nil
 }
 
 var ignorePkgFuncNames = map[string]map[string]bool{
